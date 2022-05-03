@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="words.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <link href="styles.css" rel="stylesheet">
+    <title>Wordle</title>
+</head>
+<body>
+    <h1 class="header">
+        Wordle
+    </h1>
+
+    <!-- The table where words will be inputted -->
+    <div>
+        <table class="wordle-table">
+            <tr id="g1">
+                <td></td> <td></td> <td></td> <td></td> <td></td>
+            </tr>
+            <tr id="g2">
+                <td></td> <td></td> <td></td> <td></td> <td></td>
+            </tr>
+            <tr id="g3"> 
+                <td></td> <td></td> <td></td> <td></td> <td></td>
+            </tr>
+            <tr id="g4">
+                <td></td> <td></td> <td></td> <td></td> <td></td>
+            </tr>
+            <tr id="g5">
+                <td></td> <td></td> <td></td> <td></td> <td></td>
+            </tr>
+            <tr id="g6">
+                <td></td> <td></td> <td></td> <td></td> <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <br><br>
+
+    <!-- A form to enter words -->
+    <div class="center">
+        <form>
+            <input class="input" autocomplete="off" autofocus type="text" id="guess-text">
+            <input type="submit" id="guess-submit" value="Check">
+        </form>
+    </div>
+    
+    <!-- Displays helpful information -->
+    <div class="center">
+        <p id="output">Enter a word</p>
+    </div>
+
+</body>
+</html>
