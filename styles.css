@@ -1,24 +1,62 @@
+html, body {
+    height: 100%;
+}
+
+.game {
+    height: 100%;
+    font-family: sans-serif;
+}
+
+.header {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.board {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 td {
     width: 50px;
     height: 50px;
     border-style: solid;
     border-width: 2px;
     border-color: gray;
-    font-family: sans-serif;
     font-size: 30px;
     font-weight: bolder;
     text-align: center;
 }
 
+.keyboard {
+    height: 30%;
+}
+
+.keyboard-row {
+    display: flex;
+    margin: 0 auto 8px;
+    align-items: center;
+    justify-content: center;
+}
+
 button {
     background-color: lightgray;
     height: 56px;
-    width: 32px;
-    font-family: sans-serif;
+    width: 30px;
     font-size: 15px;
     font-weight: bold;
     border: 0px;
-    margin: 3px 1px;
+    margin: 0 4px 0 0;
+}
+
+button:focus {
+    outline: none;
+}
+
+#key-enter, #key-delete {
+    width: 40px;
 }
 
 .pattern-g {
@@ -34,26 +72,6 @@ button {
 .pattern-a {
     background-color: gray;
     color: white;
-}
-
-.header {
-    font-family: sans-serif;
-    text-align: center;
-}
-
-.wordle-table {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.keyboard {
-    text-align: center;
-}
-
-#key-enter, #key-delete {
-    width: 40px;
 }
 
 #reload {
