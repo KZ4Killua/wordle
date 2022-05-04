@@ -91,18 +91,14 @@ function enter_guess()
     // Check whether the word is five letters.
     if (guess.length !== WORD_LENGTH)
     {
-        document.getElementById('output').innerHTML = "WORD MUST BE 5 LETTERS";
+        show_popup("WORD MUST BE 5 LETTERS");
         return;
     }
     // Check whether the word is in the list of valid guesses.
     else if (!VALID_GUESSES.includes(guess))
     {
-        document.getElementById('output').innerHTML = "INVALID WORD";
+        show_popup("INVALID WORD");
         return;
-    }
-    else
-    {
-        document.getElementById('output').innerHTML = "WORD ENTERED";
     }
 
     let pattern = get_pattern(guess, solution);
@@ -139,7 +135,10 @@ function enter_guess()
     if (guesses_made === GUESSES_ALLOWED || pattern === 'ggggg')
     {
         game_over = true;
-        document.getElementById('output').innerHTML = solution.toUpperCase();
+    }
+    if (game_over && pattern !== 'ggggg')
+    {
+        show_popup('Solution: ' + solution.toUpperCase())
     }
 }
 
@@ -216,6 +215,11 @@ function handle_input(input)
     {
         input_letter(key);
     }
+}
+
+function show_popup(text) 
+{
+    window.alert(text);
 }
 
 document.addEventListener('keydown', function (e) {
