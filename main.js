@@ -7,8 +7,10 @@ const GRAY = 'a';
 
 // Pick a random element from our SOLUTIONS as the day's solution
 const solution = SOLUTIONS[Math.floor(Math.random() * SOLUTIONS.length)];
-// Keep track of the number of guesses made
+
 let guesses_made = 0;
+let guess = "";
+let game_over = false;
 
 /**
  * Returns the wordle pattern for a guess given a target solution.
@@ -84,25 +86,23 @@ function matches_pattern(word, guess, pattern)
 }
 
 
-function enter_guess(guess)
+function enter_guess()
 {
-    guess = guess.toLowerCase()
-
     // Check whether the word is five letters.
     if (guess.length !== WORD_LENGTH)
     {
-        document.getElementById('output').innerHTML = "Word must be 5 letters!";
+        document.getElementById('output').innerHTML = "WORD MUST BE 5 LETTERS";
         return;
     }
     // Check whether the word is in the list of valid guesses.
     else if (!VALID_GUESSES.includes(guess))
     {
-        document.getElementById('output').innerHTML = "Invalid word!";
+        document.getElementById('output').innerHTML = "INVALID WORD";
         return;
     }
     else
     {
-        document.getElementById('output').innerHTML = "Word submitted!";
+        document.getElementById('output').innerHTML = "WORD ENTERED";
     }
 
     let pattern = get_pattern(guess, solution);
@@ -112,34 +112,112 @@ function enter_guess(guess)
     let row = document.getElementById(row_id);
     let letters = row.getElementsByTagName('td');
 
+    
     for (let i = 0; i < WORD_LENGTH; i++)
     {
-        // Enter the each letter
+        // Style the cells in the table
         letters[i].innerHTML = guess[i].toUpperCase();
-        // Change the style of each letter
-        letters[i].className = pattern.charAt(i);
+        letters[i].className = 'pattern-' + pattern.charAt(i);
+
+        // Style the virtual keyboard
+        key = document.getElementById('key-' + guess[i])
+        if (key.className === '')
+        {
+            key.className = 'pattern-' + pattern[i];
+        }
+        else if (key.className === 'pattern-y' && pattern[i] === GREEN)
+        {
+            key.className = 'pattern-g';
+        }
     }
 
     // Increase the number of guesses made.
     guesses_made += 1;
-
-    // Clear the input field
-    document.querySelector('#guess-text').value = '';
+    // Clear the current guess
+    guess = '';
 
     if (guesses_made === GUESSES_ALLOWED || pattern === 'ggggg')
     {
-        // Disable the form
-        document.querySelector("#guess-text").setAttribute("disabled", "disabled");
-        document.querySelector("#guess-submit").setAttribute("disabled", "disabled");
-        // Show the solution
-        document.querySelector("#output").innerHTML = solution.toUpperCase();
+        game_over = true;
+        document.getElementById('output').innerHTML = solution.toUpperCase();
     }
 }
 
-// Listen for when the user enters a word
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('form').addEventListener('submit', function(e) {
-        enter_guess(document.querySelector('#guess-text').value);
-        e.preventDefault();
-    });
+function input_letter(letter)
+{
+    // Make sure we have not already entered 5 letters
+    if (guess.length === 5)
+    {
+        return;
+    }
+    // Identify the right row to work with
+    let row_id = 'g' + String(guesses_made + 1);
+    // Identify the right cell to work with
+    let cell = document.getElementById(row_id).getElementsByTagName('td')[guess.length]
+    // Update the cell
+    cell.innerHTML = letter.toUpperCase();
+    // Update the current guess
+    guess += letter.toLowerCase();
+}
+
+function delete_letter()
+{
+    // Check if there are any letters to delete
+    if (guess.length === 0)
+    {
+        return;
+    }
+    // Identify the right row to work with
+    let row_id = 'g' + String(guesses_made + 1);
+    // Identify the right cell to work with
+    let cell = document.getElementById(row_id).getElementsByTagName('td')[guess.length - 1];
+    // Update the cell
+    cell.innerHTML = '';
+    // Update the current guess
+    guess = guess.substring(0, guess.length - 1)
+}
+
+
+function handle_input(input)
+{
+    // Block all input when game is over
+    if (game_over)
+    {
+        return;
+    }
+
+    let key = input.key;
+    // Button was clicked on physical keyboard
+    if (input.type === 'keydown')
+    {
+        if (input.keyCode === 13)
+        {
+            input.preventDefault();
+        }
+       
+        key = input.key;
+    }
+    // Button was clicked on virtual keyboard
+    else
+    {
+        key = input.name;
+    }
+
+    // Handle keys
+    if (key === "Enter")
+    {
+        enter_guess();
+    }
+    else if (key === "Backspace")
+    {
+        delete_letter();
+    }
+    else if (key.length === 1)
+    {
+        input_letter(key);
+    }
+}
+
+document.addEventListener('keydown', function (e) {
+    handle_input(e);
 });

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,7 @@
     <link href="styles.css" rel="stylesheet">
     <title>Wordle</title>
 </head>
+
 <body>
     <h1 class="header">
         Wordle
@@ -39,19 +41,51 @@
         </table>
     </div>
 
-    <br><br>
-
-    <!-- A form to enter words -->
-    <div class="center">
-        <form>
-            <input class="input" autocomplete="off" autofocus type="text" id="guess-text">
-            <input type="submit" id="guess-submit" value="Check">
-        </form>
+    <!-- A virtual keyboard to enter words -->
+    <div class="keyboard">
+        <button type="button" id="key-q" name="q" onclick="handle_input(this)">Q</button>
+        <button type="button" id="key-w" name="w" onclick="handle_input(this)">W</button>
+        <button type="button" id="key-e" name="e" onclick="handle_input(this)">E</button>
+        <button type="button" id="key-r" name="r" onclick="handle_input(this)">R</button>
+        <button type="button" id="key-t" name="t" onclick="handle_input(this)">T</button>
+        <button type="button" id="key-y" name="y" onclick="handle_input(this)">Y</button>
+        <button type="button" id="key-u" name="u" onclick="handle_input(this)">U</button>
+        <button type="button" id="key-i" name="i" onclick="handle_input(this)">I</button>
+        <button type="button" id="key-o" name="o" onclick="handle_input(this)">O</button>
+        <button type="button" id="key-p" name="p" onclick="handle_input(this)">P</button>
+        <br>
+        <button type="button" id="key-a" name="a" onclick="handle_input(this)">A</button>
+        <button type="button" id="key-s" name="s" onclick="handle_input(this)">S</button>
+        <button type="button" id="key-d" name="d" onclick="handle_input(this)">D</button>
+        <button type="button" id="key-f" name="f" onclick="handle_input(this)">F</button>
+        <button type="button" id="key-g" name="g" onclick="handle_input(this)">G</button>
+        <button type="button" id="key-h" name="h" onclick="handle_input(this)">H</button>
+        <button type="button" id="key-j" name="j" onclick="handle_input(this)">J</button>
+        <button type="button" id="key-k" name="k" onclick="handle_input(this)">K</button>
+        <button type="button" id="key-l" name="l" onclick="handle_input(this)">L</button>
+        <br>
+        <button type="button" id="key-enter" name="Enter" onclick="handle_input(this)">
+            <svg width="24" height="24" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                <path d="M864 170h-60c-4.4 0-8 3.6-8 8v518H310v-73c0-6.7-7.8-10.5-13-6.3l-141.9 112a8 8 0 0 0 0 12.6l141.9 112c5.3 4.2 13 .4 13-6.3v-75h498c35.3 0 64-28.7 64-64V178c0-4.4-3.6-8-8-8z"/>
+            </svg>            
+        </button>
+        <button type="button" id="key-z" name="z" onclick="handle_input(this)">Z</button>
+        <button type="button" id="key-x" name="x" onclick="handle_input(this)">X</button>
+        <button type="button" id="key-c" name="c" onclick="handle_input(this)">C</button>
+        <button type="button" id="key-v" name="v" onclick="handle_input(this)">V</button>
+        <button type="button" id="key-b" name="b" onclick="handle_input(this)">B</button>
+        <button type="button" id="key-n" name="n" onclick="handle_input(this)">N</button>
+        <button type="button" id="key-m" name="m" onclick="handle_input(this)">M</button>
+        <button type="button" id="key-delete" name="Backspace" onclick="handle_input(this)">
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24">
+                <path fill="var(--color-tone-1)" d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H7.07L2.4 12l4.66-7H22v14zm-11.59-2L14 13.41 17.59 17 19 15.59 15.41 12 19 8.41 17.59 7 14 10.59 10.41 7 9 8.41 12.59 12 9 15.59z"></path>
+            </svg>
+        </button>
     </div>
-    
+      
     <!-- Displays helpful information -->
-    <div class="center">
-        <p id="output">Enter a word</p>
+    <div class="info">
+        <p id="output">ENTER A WORD</p>
     </div>
 
 </body>
